@@ -1,24 +1,25 @@
-import java.io.*;
-public class CountLinesInFile {
+#include <stdio.h>
 
-    public static void main(String[] args) {
-        String filePath = "C:/Users/DELL/Downloads/example.txt"; // Replace this with the actual path to your text file
-        int lineCount = 0;
-
-        try {
-            File file = new File(filePath);
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-
-            while (reader.readLine() != null) {
-                lineCount++;
-            }
-
-            reader.close();
-
-            System.out.println("Number of lines in the file: " + lineCount);
-        } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
-            e.printStackTrace();
+int main() {
+    FILE *file;
+    char fileName[] = "example.txt";
+    char ch;
+    int lines = 0;
+    file = fopen(fileName, "r");
+    if (file == NULL) {
+        printf("Error opening the file.\n");
+        return 1;
+    }
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            lines++;
         }
     }
+
+    // Close the file
+    fclose(file);
+
+    printf("Number of lines in the file: %d\n", lines);
+
+    return 0;
 }
